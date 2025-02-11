@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/san_valentino/static/css/main.088eb39e.css",
+    "main.js": "/san_valentino/static/js/main.830f40af.js",
+    "index.html": "/san_valentino/index.html",
+    "main.088eb39e.css.map": "/san_valentino/static/css/main.088eb39e.css.map",
+    "main.830f40af.js.map": "/san_valentino/static/js/main.830f40af.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.088eb39e.css",
+    "static/js/main.830f40af.js"
+  ]
+}
