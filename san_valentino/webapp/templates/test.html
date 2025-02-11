@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API</title>
+    <style>
+        .debug-box {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test API</h1>
+    
+    <div class="debug-box">
+        <h3>Connection Test</h3>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connection-result"></div>
+    </div>
+
+    <div class="debug-box">
+        <h3>API Test</h3>
+        <button onclick="testAPI()">Test API</button>
+        <div id="result">Not started</div>
+        <div id="error" style="color: red;"></div>
+        <div id="debug"></div>
+    </div>
+
+    <script>
+        const baseUrl = 'http://192.168.1.8:8000';
+        
+        function log(message) {
+            const debug = document.getElementById('debug');
+            debug.innerHTML += `<br>${new Date().toLocaleTimeString()}: ${message}`;
+        }
+
+        function testConnection() {
+            const result = document.getElementById('connection-result');
+            result.textContent = 'Testing...';
+            
+            fetch(`${baseUrl}/admin/`)
+                .then(response => {
+                    result.textContent = `Server reachable! Status: ${response.status}`;
+                    result.style.color = 'green';
+                })
+                .catch(error => {
+                    result.textContent = `Connection error: ${error.message}`;
+                    result.style.color = 'red';
+                });
+        }
+
+        function testAPI() {
+            const result = document.getElementById('result');
+            const error = document.getElementById('error');
+            
+            result.textContent = 'Testing API...';
+            error.textContent = '';
+            log('Starting API test');
+
+            fetch(`${baseUrl}/calculate-days/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: '2021-02-07',
+                    description: 'Test'
+                })
+            })
+            .then(response => {
+                log(`Got response: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                log('Parsed response data');
+                result.textContent = `Days passed: ${data.days_passed}`;
+                result.style.color = 'green';
+            })
+            .catch(err => {
+                log(`Error occurred: ${err.message}`);
+                error.textContent = err.message;
+            });
+        }
+    </script>
+</body>
+</html> 

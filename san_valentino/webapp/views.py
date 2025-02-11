@@ -1,8 +1,8 @@
 from django.http import JsonResponse
-from datetime import datetime
-from .models import DateCounter
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 import json
+from django.shortcuts import render
 
 from rest_framework import viewsets
 from .models import Message
@@ -17,25 +17,19 @@ def calculate_days(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            input_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
-            description = data.get('description', '')
-            
-            # Salva la data nel database
-            date_counter = DateCounter.objects.create(
-                start_date=input_date,
-                description=description
-            )
-            
-            # Calcola i giorni passati
-            days_passed = date_counter.days_passed()
+            start_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+            today = datetime.now().date()
+            days_passed = (today - start_date).days
             
             return JsonResponse({
                 'days_passed': days_passed,
-                'start_date': input_date.strftime('%Y-%m-%d'),
-                'description': description
+                'start_date': data['date'],
+                'description': data.get('description', '')
             })
-            
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-            
-    return JsonResponse({'error': 'Solo richieste POST sono permesse'}, status=405)
+    
+    return JsonResponse({'error': 'Only POST method is allowed'}, status=405)
+
+def test_view(request):
+    return render(request, 'test.html')
