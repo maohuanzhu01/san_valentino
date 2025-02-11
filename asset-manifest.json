@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/san_valentino/static/css/main.088eb39e.css",
-    "main.js": "/san_valentino/static/js/main.ef3ce425.js",
+    "main.js": "/san_valentino/static/js/main.6ae5b59f.js",
     "index.html": "/san_valentino/index.html",
     "main.088eb39e.css.map": "/san_valentino/static/css/main.088eb39e.css.map",
-    "main.ef3ce425.js.map": "/san_valentino/static/js/main.ef3ce425.js.map"
+    "main.6ae5b59f.js.map": "/san_valentino/static/js/main.6ae5b59f.js.map"
   },
   "entrypoints": [
     "static/css/main.088eb39e.css",
-    "static/js/main.ef3ce425.js"
+    "static/js/main.6ae5b59f.js"
   ]
 }
